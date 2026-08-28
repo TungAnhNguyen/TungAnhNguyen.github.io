@@ -37,3 +37,20 @@ This work is published under [MIT][mit] License.
 [chirpy]: https://github.com/cotes2020/jekyll-theme-chirpy/
 [CD]: https://en.wikipedia.org/wiki/Continuous_deployment
 [mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
+
+
+## Tung Anh's note
+Instruction taken from this video: https://www.youtube.com/watch?v=m1RYsmOMPLs
+TLDR:
+### Download Ruby 
+Download Ruby and follow ALL instructions here: https://jekyllrb.com/docs/installation/windows/
+When I run `jekyll -v`, the output is `4.4.1`
+Note: chirpy does NOT support ruby 4.0. Do not download the latest Ruby version 3.3.12
+
+### Install dependency
+Run `bundle` in terminal in your project.
+### Run server
+Run `bundle exec jekyll s` in terminal in your project. The terminal will outputs `http://127.0.0.1:4000/`: this is your local blog server running.
+Deploying this on Github Pages will host your blogs on Github.
+### Edit & Modification
+Open file `_config.yaml`, set parameter to your Github Page URL (`https://yourGithubUsername.github.io)
