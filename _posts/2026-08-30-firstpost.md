@@ -1,14 +1,14 @@
 ---
 title: "But it's not my fault!"
 date: 2026-08-30 00:00:00 +0700
-categories: [But it's not my fault]
-tags: [But it's not my fault]
+categories: [EN-But it's not my fault]
+tags: [EN-But it's not my fault]
 ---
 
 # But it's not my fault
 
 Welcome to the series **But it's not my fault!** This is where I talk about fun stories in my career. Some of the fun stories are my faults, some are not (hence the name of the series).
-I hope that from the stories in the series, both you and I can learn from these. Or at least, I hope you find these stories entertaining. Most of the stories are recollections of events in the past. There can be points I miss, and there are my own personal opinions and observations, too. Feel free to comment, but please don't judge too harsh. I'm just a normal developers and I'm not a superstar.
+I hope that from the stories in the series, both you and I can learn from these. Or at least, I hope you find these stories entertaining. Most of the stories are recollections of events in the past. There can be points I miss, and there are my own personal opinions and observations, too. Please feel free to comment, and let me know what you think.
 
 This is the first post in the series. I come up with this name "But it's not my fault", because, in my opinion when this happened, it's not my fault. But it's my responsibility to prove that to my manager.
 
@@ -42,7 +42,7 @@ There has been a decision somewhere, before I joined, to migrate and break down 
 
 The application has backends in Python and NextJS with [pdf-lib](https://pdf-lib.js.org/) (there is a Rust service, but that is irrelevant), and a frontend in [react-pdf-viewer](https://www.embedpdf.com/react-pdf-viewer/). In my probation, I only have experience in backend (Java), and it's been a long time I haven't done Python, and this job was the first time I worked in TypeScript (at least I know Javascript a little bit). Worst, I know nothing about frontend, except HTML-CSS I learnt at school (this had a significant effect later on). Looking at React syntax seems like reading Egyptian hieroglyphs.
 
-The new TypesScript service can do Overwrite mode and Side by Side mode well, but it cannot do Annotation mode. Why, I don't know. That's when I was assigned the task. Looking back, I should have asked why. There was a chance I was given a task that can't be solved, or unusally hard to solve. Accepting tasks without knowing how hard it is is a horrible thing to do, now that I look back. There was a reason this was a stinking task that original developers didn't want to do. But I thought, if this was done in Python in the first place, then it could be done in Typescript, right?
+The new TypesScript service can do Overwrite mode and Side by Side mode well, but it cannot do Annotation mode. Why, I don't know. That's when I was assigned the task. Lesson learnt early in probation: don't accept a ticket without knowing why, especially when the previous team postponed the ticket. There was a chance I was given a task that can't be solved, or unusally hard to solve. Accepting tasks without knowing how hard it is is a horrible thing to do, now that I look back. There was a reason this was a stinking task that original developers didn't want to do. But I thought, if this was done in Python in the first place, then it could be done in Typescript, right?
 
 ### Task began - resolve on the backend TypeScript side
 I worked on NextJS with [pdf-lib](https://pdf-lib.js.org/)
@@ -67,9 +67,7 @@ I presented my current "solution" and the problem I was having. I was given extr
 
 Next: I read our frontend code, and I even checked out frontend library [react-pdf-viewer source code](https://github.com/react-pdf-viewer/react-pdf-viewer). I could not understand a thing. *I have never seen Javascript and HTML elements together in a React code*. I had no idea how React works, and spending 4 - 6 hours learning React from scratch is a risk that might lead nowhere. After all, the prolem happened after I changed backend system from our Python service to Typescript service. I should investigate backend system, and leave the frontend alone.
 
-Asking the only frontend member in Vietnam office didn't go anywhere.
-
-*Sidenote: the frontend engineer was always in sick. He always either called in sick, or his parents suffered from some mysterious horror event. Months later, he was laid off. There was no explicit reason, but I think nobody could suffer so many terrible events to call in sick days consecutively like that.*
+Asking the only frontend member in Vietnam office didn't go anywhere. He was not available. I was on my own regarding React matter.
 
 At least, I found the annotation SVG icon. But it's written in code, and I could not display it to confirm that's how the ugly the icon looked on frontend side, or, the error came from the frontend side.
 
@@ -143,9 +141,9 @@ Lessons from the series.
 
 | What I did | What I could have done better |
 | ----------- | -------------------------------------------------------------------------------------------------------------------- |
-| I didn't ask why this task was necessary | I should have asked why this task was necessary.<br>Why was the original Python god object being replaced<br> by the new TypeScript service? |
+| I didn't know why this task was necessary | I should not have accepted a task without understanding why it was postponed.<br>Why was the original Python god object being replaced<br> by the new TypeScript service? |
 | I used personal free Copilot for advice | I could have asked if our company had any AI service to use.<br> This was the first time I used AI on a project.<br> Heck, a few months earlier, when I was interviewing candidates for CMC Global,<br>I disdained when candidates asked permission to use ChatGPT<br> during their codes interviews.<br> Later on, I learnt that our company had Gemini Pro for employees. |
-| I checked out library source code | This was new. I didn't know this was possible first time.<br> Maybe because in the past, I used to work for big, big corporations<br> and we rarely used external, open source library<br> (most libraries were either framework or internal).<br> Libraries aren't perfect.<br> Also, I wonder if the best AI (Claude Sonnet, Claude Opus) can fix these similar bugs?<br> In my case, the error happens in the frontend library.<br> But what if developers have to check out multiple levels of library?<br> Can the AI be persistent enough to do that?<br> With enough tokens, I think yes,<br> but I think the token cost would be painful.<br> At the time of this writing (August 2026),<br> I have seen cases where I give the documentation link to Claude Sonnet,<br> and the code result is still broken. |
+| I checked out library source code | This was new. I can read the source code and the requirement specs. When documentation fails, read the PRs. Then PR fails, read the source code.<br> Maybe because in the past, I used to work for big, big corporations<br> and we rarely used external, open source library<br> (most libraries were either framework or internal).<br> Libraries aren't perfect.<br> Also, I wonder if the best AI (Claude Sonnet, Claude Opus) can fix these similar bugs?<br> In my case, the error happens in the frontend library.<br> But what if developers have to check out multiple levels of library?<br> Can the AI be persistent enough to do that?<br> With enough tokens, I think yes,<br> but I think the token cost would be painful.<br> At the time of this writing (August 2026),<br> I have seen cases where I give the documentation link to Claude Sonnet,<br> and the code result is still broken. |
 | I searched for similar problems I had on Github| This was new.<br> At the time of this bug (May 2025),<br> I never thought Google search index could leave such gaps.<br> There are searchable results that do not show up on Google results.<br> Now I learn if we know where the library comes from,<br> we can search if someone else has ever encountered our problem,<br> not on Google, but on Github.<br> Will AI agents be smart enough to do this too?<br> Maybe yes, maybe no|
 | I read the Adobe PDF specification | Good to know a new technique.<br> In this case, reading the specification only confirmed<br> that my solution on the backend was doing as intended.<br> Sometimes you have to read the specification.<br> Not a fun thing to do, especially when you are on deadline|
 | I asked the only frontend engineer for help | I don't know how this could be better.<br> If my colleage slacked off with a valid reason<br> (family member in traffic accident),<br> then the best I can do is to report the situation to my manager,<br> and ask for extra resource to work on, *if the timeline allows*. |
