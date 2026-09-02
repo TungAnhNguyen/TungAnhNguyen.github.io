@@ -5,8 +5,6 @@ categories: [EN-But it's not my fault]
 tags: [EN-But it's not my fault]
 ---
 
-# Indiana Jones and the Lost Solution
-
 *Date: Friday, 30th August, 2025<br>*
 *Context: We need to test if we can deploy open source models from HuggingFace on GKE (Google Kubernetes Engine) cluster, rather than deploy on the standard Google Vertex. It's closed to holiday (Vietnam Independence day on 2 September), and we need a result to report soon. But deploying such solution right before holiday, while keeping update communication is easier said than done*
 
