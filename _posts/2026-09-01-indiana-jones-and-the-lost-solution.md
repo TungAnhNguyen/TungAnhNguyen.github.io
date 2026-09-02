@@ -34,7 +34,7 @@ At first, healthcheck requests failed. Service were not found. My colleage **har
 
 These rules are logical, but they completely wreck our model names from HuggingFace! I had to somehow match the current HuggingFace model names from client HTTP requests with the current service names ("**qwen3b**", "**qwen7b**"). It seemed that my colleague, when deploying these models, recognized this too, and he decided to hardcode the service names. No problem for him. He could deploy and test and consider the task done. But from my side, it's not that simple: if I hardcoded the model's real name with K8s service valid name, (say, hardcode Qwen/Qwen2.5-3B to "qwen3b" service name like my colleague did), then, whenever a data engineer or AI engineer wanted to deploy a new model for test, *we* engineers had to change the API Gateway source code and deployed again, too.
 
-We cloud register the model name before deployment, but that introduced another layer: what will the persistence database look like? We also wanted to shutdonw the K8s cluster whenever we didn't need it (outside office hour). And it's the last day before holiday, on *Friday*. My teamlead wanted to see the result too. He said he didn't care as long as I got his ML API Gateway, written in Python.
+We could register the model name before deployment, but that introduced another layer: what will the persistence database look like? We also wanted to shutdown the K8s cluster whenever we didn't need it (outside office hour). And it's the last day before holiday, on *Friday*. My teamlead wanted to see the result too. He said he didn't care as long as I got his ML API Gateway, written in Python.
 
 ### Solution - K8s service
 I wrote a list of what I needed:
@@ -48,7 +48,7 @@ User input is model name (*what models from HuggingFace do you want to deploy:*,
 
 *sidenote: from my previous experience, I didn't know much about Knative. And I was sure I could not rely on asking Gemini to edit Knative for me. Many times, I asked Gemini (our company provided us with Gemini Pro) for help, and the results were unusable. I had to pull up the official Knative documents, and edit the YAML file by myself. Seems normal back in the days, but in the era of AI, that can be seen as being unproductive.*
 
-But I know Helm! Helm is hands down, much much easier to use than Knative. I knew I should inform the guy who handled the deployment, and knew more that I should let my teamlead know about the current blocker. But my teamlead kept screaming "where is my Python code" in the chat. So, I decided to partially worked in the part of my teamlead. His hometown is a bit far away from the office in HCM city, and he's probably on his way to the airport. *I'm on my own*.
+But I know Helm! Helm is hands down, much much easier to use than Knative. I knew I should inform the guy who handled the deployment, and knew more that I should let my teamlead know about the current blocker. But my teamlead urgently inquired for the Python code and the test results in the chat. So, I decided to partially worked in the part of my teamlead. His hometown is a bit far away from the office in HCM city, and he's probably on his way to the airport. *I'm on my own*.
 
 | What we were having currently | What I needed to change |
 | We deployed using terminal | A deployment bash script |
@@ -61,7 +61,7 @@ Using that sanitised model name (qwen-qwen2-53b, qwen-qwen7b), I filed in the va
 ### Solution - Python API Gateway
 User input: model name, and prompt for model to answer.
 
-If the sanitise bash script can clean the model names, then the Python code must do exactly that. Here, there were 2 separate functions that must perform the same thing: same input, same output. If there were any deviation, then either the deployment failed or HTTP request failed.
+**Important**: If the sanitise bash script can clean the model names, then the Python code must do exactly that. Here, there were 2 separate functions that must perform the same thing: same input, same output. If there were any deviation, then either the deployment failed or HTTP request failed.
 
 The rest were easy. With the deployments in place, I just forward the prompt to the corrected service name on K8s, and returned the result to user.
 
@@ -70,10 +70,10 @@ I had the Python code, and the successful test result. But there's a problem:
 - I was stepping out of my work scope. My scope is the Python API Gateway, not the bash script, and certainly not the deployment with Helm.
 - Our company uses Knative instead of Helm.
 
-So, I made 3 commits in Git. The first commit contained all the "unauthorised" changes: the bash scripts, the Helm template. The 2nd commit simply deleted what I added in the 2nd commit. And the 3rd commit contained all the Python code changes and the test results (just manual test using Postman). My teamlead, earlier, was screamming why the hell was I writing Bash script while he wanted the Python Gateway. To him, the solution right now only contained the Python code and the Postman successful test results.
+So, I made another branch in Git. The new branch contained the Python code plus all the "unauthorised" changes: the bash scripts, the Helm template. And the main branch contained all the Python code changes and the test results (just manual test using Postman). My teamlead, earlier, was screamming why the hell was I writing Bash script while he wanted the Python Gateway. To him, the solution right now only contained the Python code and the Postman successful test results.
 
-I figured, even though I was stepping beyond my work scope, at least I had the solution for the K8s service naming problem. Maybe 1 day I might need it. So, I buried that solution in one of the commits. Hence the name of this post, *Indiana Jones and the lost solution*. I added Indiana Jones, because I thought this might make a good Indiana Jones movie title (by the way, you should check out the real movie series *Indiana Jones* from the 80s. They are really fun, even if you are watching an 80s series in 2026).
+I figured, even though I was stepping beyond my work scope, at least I had the solution for the K8s service naming problem. Maybe 1 day I might need it. So, I buried that solution in one of my branch. Hence the name of this post, *Indiana Jones and the lost solution*. I added Indiana Jones, because I thought this might make a good Indiana Jones movie title (by the way, you should check out the real movie series *Indiana Jones* from the 80s. They are really fun, even if you are watching an 80s series in 2026).
 
-In the following week after our Independence holiday, my teamlead inquired my about the very same name problem in K8s service. Why me, and not my colleague who handled the deployment (and hardcoded the service name), I didn't know, and I didn't ask. I presented him the solution, plus the commit in the past.
+In the following week after our Independence holiday, my teamlead inquired my about the very same name problem in K8s service. Why me, and not my colleague who handled the deployment (and hardcoded the service name), I didn't know, and I didn't ask. I presented him the solution I saved earlier.
 
 It worked, but in hindsight, I should have told him first. It wasn't fun for him to be kept in the dark. I believe, in software development or in any field in general, roadblocks and unexpected challenges are unavoidable. What matters more is that we keep transparency in our report. Managers have to report themselves too, and it's best to keep them informed so they can make the best decisions.
