@@ -1,0 +1,49 @@
+---
+title: "Induction"
+date: 2026-09-27 00:00:00 +0700
+categories: [EN-But it's not my fault]
+tags: [EN-But it's not my fault]
+---
+
+In my freshman and sophomore years in college (1st, 2nd year at college in the US), my favourite class was discrete mathematics. I still remember the introduction in induction chapter. It goes like this (I'm reciting from my memory. Sorry in advanace if I don't remember all the details):
+>
+A teacher gave a class of 20 students a math problem. Each student has to calculate the sum from 1 to the number of the student. The 1st student had to calculate from 1 to 1, the 2nd student had to calculate the sum from 1 to 2, and 10th student had to calculate the sum from 1 to 10, and so on. The teacher looked at the 20th student and was surprised: the 20th student simply took the result from the 19th student and added 20.
+>
+
+*Date: August, 2026<br>*
+*Context: our company, besides making SaaS products for manufacturing business users for subscriptions, decides to expand into more "niche" market: by providing customised solution to each customer's specific problem, we hope to increase revenue, and to add more customer to our contact list. Some of the problems, however, turns out to be a bit beyond our capability. Can we still win new customers over?*
+
+### Client Proposal
+- Our client (Sharp), who has multiple child companies, possesses a factory in Vietnam, which produces: screen, monitor, displays. TV screen, computer monitors, smartphone screen, whatever displays device, they make it. Each product has to go through about 10 workstations or so, and manual inspection only happen once in a while after a few workstation - there isn't enough manpower to check all workstation.
+- Each defect product, after detected, has to be traced back to which workstation that is responsible. The entire production lines has to be stopped, and since the factory runs around the clock, production is horrifically affected whenever something like this happens - they can't afford stopping the production lines *that often* to inspect.
+- Their request: help them find a solution to reduce error rate, or at least *alert* them whenever an error happen in each workstation, so they can immediately know which workstation is responsible for the defect, and calibrate accordingly.
+
+### My 1st answer: I rejected Sharp
+When I first heard about their problem and request *verbally*, I considered it impossible: our company is a software provider on cloud. We have very little hardware experience (we shut down our own manufacturing branch a few years prior), and we certainly have zero knowledge in screen and monitor. Also, using a generic AI model (Gemini, ChatGPT, Claude) seems highly irresponsible: We have no way to verify AI result - only client can verify. If AI knowledge conflicts with client knowledge, there is nothing we can do, and our reputation suffers.
+
+In the following day, I had a big meeting with: the sales guy who informed me verbally of the problem, my technical manager, the sales manager, and product manager. After *officially* hearing about the problem, I stated my honest opinion: our company could not reliably detect defections, even to an extend. I also proposed a replacement: an error search program (kinda like a bug tracking system. Client can at least search previously encountered problems using keywords like using Google). Sales guy rejected, saying sales team did't want client to think of our company solution as a simple error lookup database. Everyone in the meeting agreed, and nobody talked about the problem from the client anymore. Client request seemed in a dead end.
+
+>
+To my defense, I didn't have enough time to look up the problem. I had about 18 hours, from the time I heard about client problem verbally, to the official meeting with the big guys in my company. But that night, I had a flight from Ho Chi Minh office to my home in Hanoi. And that night, there were *a few* drone incidents in Tan Son Nhat airport in Ho Chi Minh - all flights were cancelled and delayed for more than 3 hours. I got home at 3 AM, exhausted and tired, and the short meeting notice, the delayed flight plus the impossibility (my impression) of the problem made me not even bother to even look up the problem.
+>
+
+### My 2nd answer: it's possible
+But the problem stuck in my head. On my own, I looked up on Google, and I chatted with Gemini Pro (provided by my company), and I stubled upon this article in Google Cloud from 2021: [Visual Inspection AI: a purpose-built solution for faster, more accurate quality control](https://cloud.google.com/blog/products/ai-machine-learning/) 
+
+Basically, Google has got a specific model for error detection in factory in real time, since 2021, to detect defected products in factory production lines. Our client Sharp has very strong hardware experience, but little experience regarding cloud, AI, and backend software. My company can use this model provided by Google Cloud, (or we can even find a more optimised model in the future - who knows!). Basically, client needs a very, very good camera in each workstation, and we can send live image footage to Google Cloud AI model for analysis. Heck, I didn't know how it would work in real life, how much accuracy the AI model could score, but it's worth a try, at least a demo.
+
+I informed sales guy of this new finding. He was concerned about the hardware (very good camera) costs. I looked up the [best camera from the best manufacturer Zeiss](https://www.zeiss.com/microscopy/en/products/cameras.html) I knew. Zeiss's best camera can detect a wide spectrum of colours, and can even work in biology, and probably detect cancer cells (written from their [brochure](https://www.zeiss.com/microscopy/en/products/cameras/axiocam-820-color.html)). I was not sure if this camera was good enough or maybe too good for screen and monitor. But I considered using the best camera, as I wasn't sure about the capability of Google Cloud AI models. I looked up Zeiss's camera cost: it wasn't explicitly written as it depended on quotation price. But on Ebay, Zeiss's camera price was €12,000 (not to mention Zeiss's camera package), and my sales colleague argued: it's extremely hard to convince customer to pay upfront such a huge amount *for each camera in each workstation*, for an unforseen return.
+
+>
+Why did I choose Zeiss as an example? Could there be a better guy like Sony, or other brands in Germany, EU, Japan or USA? When talking about the most famous glass, lense and camera, the first brand I could think of is Zeiss. Maybe it's because I heard about Zeiss making solar panels for space shuttles, or Zeiss medical optic glasses is quite famous in Vietnam. I don't know, it's purely personal opinion. But I figured, Zeiss could be a good reference.
+>
+
+I looked up further: [Sharp has some very good camera](https://global.sharp/business/en/image-sensor-camera/products/camera/), so Sharp in Vietnam can utilise some hardware from her parent company. With client's hardware, and a good backend system from our company (on Google Cloud or even on premise), instead of Sharp paying a huge price for Zeiss camera and Zeiss software package, Sharp could utilise their own camera to know when a product is defected in real time. We could have a win-win here, at least in theory.
+
+I figured, we could setup a demo for Sharp for a single workstation that often had the worst accuracy in the last month: if the result is positive (not all, but lots of defects detected by the camera and the new AI model), we could rollout across all of Sharp's workstations. My company might win another deal, and our company could think about expand into another market: IoT in manufacturing factory.
+
+### Final result
+The sales manager managed to sell **another** software package of our company to Sharp. Good news to sales manager and to our company. That said, it's unlikely the sales team could push selling this error detection to Sharp. I informed my manager of my finding - maybe he could find an use for that in the future, in another case with another client. My solution was put on shelves. Still, lessons learnt:
+- What might be impossible in the past could be possible in the future. What might be at first considered impossible can be possible now, if we know how to search for solution. Could I have searched for the solution more thoroughtly? Could I have prompted AI for search more thoroughtly? Could I have been more open-minded, to even look for a solution in the first place?
+- The domain problem is outside my company's field. Should we even bother to explore and expand? Positive thinking says yes, but I said no in the first place. I wanted to guard the reputation. Will I act different in the future, with not similar but different circumstances? Maybe, depending on my company's exploration budget, or how my adventurous my department wants to be. 
+- Sometimes, you don't need to build all the system from start to finish. You can rely on 3rd parties to partially build the system for you to leverage. I'm still unsure about the result of of using 3rd party AI (even from reputable providers like Google), so I informed my manager the situation. Heck, I'm just a software engineer, and if we really need to verify the AI result, we could ask our own AI team for help. But a solution based on another solution is better than nothing - client gets to improve their factory, my company gets a new deal and explore and expand into a new field. It's a win-win. We see this often in software development before AI usage too. Most developers rely on authentication, hash, encryption libraries, or high level data structure such as map, set, binary tree. It's no different when we rely on AI solution (although to be fair AI solutions are not as common as data structures we learn from textbook *yet*).
