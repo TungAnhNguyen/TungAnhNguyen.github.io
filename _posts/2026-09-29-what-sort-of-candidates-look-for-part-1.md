@@ -104,13 +104,80 @@ Prompt 1 (same as above):
 >
 Create a list of integer in Java. Write a sort algorithm yourself.
 >
-TODO: write Java code answer here
+
+{::options parse_block_html="true" /}
+<details><summary markdown="span"><i>Click here to view Java answer code</i></summary>
+```java
+package test;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) throws Exception {
+		List<Integer> numberList = Arrays.asList(20, 1, 5, 2, 10, 8, 7, 12, 11);
+		sortList(numberList);
+		System.out.println(numberList);
+	}
+
+	public static void sortList(List<Integer> numberList) {
+		for (int i = 0; i < numberList.size(); i++) {
+			int minNumber = numberList.get(i);
+			int minNumberIndex = i;
+
+			for (int j = i; j < numberList.size(); j++) {
+				int currentNumber = numberList.get(j);
+				if (currentNumber < minNumber) {
+					minNumber = currentNumber;
+					minNumberIndex = j;
+				}
+			}
+
+			int temporaryNumber = numberList.get(i);
+			numberList.set(i, minNumber);
+			numberList.set(minNumberIndex, temporaryNumber);
+		}
+	}
+}
+```
+</details>
+{::options parse_block_html="false" /}
 
 Prompt 2: 
 >
-Create a list of string in Java. Then, using Java stream, get all members of the list that has length more than 3, map the string value to its length, and collect the result as a HashMap (the final map has the keys of the strings from the list, and each string maps to its length).
+Create a list of string in Java. Then, using Java stream, get all members of the list that has length more than 3, map the string value to itself in uppercase, and collect the result as a HashMap (the final map has the keys of the strings from the list, and each value is the key mapping to the key's length).
 >
-TODO: write Java code answer here
+
+{::options parse_block_html="true" /}
+<details><summary markdown="span"><i>Click here to view Java answer code</i></summary>
+```java
+package test;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class Main {
+	public static void main(String[] args) throws Exception {
+		List<String> testList = Arrays.asList("Hello", "this", "is", "a", "list", "of", "test", "string");
+		Map<String, Integer> testMap = testList.stream()
+				.filter(s -> s.length() > 3)
+				.map(s -> s.toUpperCase(Locale.ROOT))
+				.collect(
+						Collectors.toMap(
+								s -> s,
+								s -> s.length()
+						)
+				);
+		System.out.println(testMap);
+	}
+}
+```
+</details>
+{::options parse_block_html="false" /}
 
 Easy enough, right? And I assured candidates that it's OK they didn't know everything - that's why I included Google search to simulate real life example. And since I only had about 10 - 15 minutes windows, before someone else took his turn to interview candidates, the question should be easy enough. My grading criteria was quite simple: if candidates could do this, then they qualified at least as a junior member. If candidates could do this well and fast without using Google, they qualified at least as a middle engineer.
 
