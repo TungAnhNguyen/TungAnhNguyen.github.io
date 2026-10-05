@@ -6,7 +6,7 @@ tags: [EN-But it's not my fault]
 ---
 
 *Date: Friday, 30th August, 2025<br>*
-*Context: We need to test if we can deploy open source models from HuggingFace on GKE (Google Kubernetes Engine) cluster, rather than deploy on the standard Google Vertex. It's closed to holiday (Vietnam Independence day on 2 September), and we need a result to report soon. But deploying such solution right before holiday, while keeping update communication is easier said than done*
+*Context: We need to test if we can deploy open source models from HuggingFace on GKE (Google Kubernetes Engine) cluster, rather than deploy on the standard Google Vertex. It's closed to holiday (Vietnam Independence day on 2 September), and we need a result to report soon. But deploying such solution right before holiday, while keeping update communication is easier said than done.*
 
 ### Feature explanation
 Our company had a few running models on Google Vertex AI. We wanted to consider whether these models can run well on GKE, which has better autoscaling support and better price (this was in 2025. Now in 2026 Vertex AI has remedied this issue). We didn't run immediately our models on GKE, but instead, we wanted to run open source models from HuggingFace first. We wanted to see what the most optimal infrastructure (GPU card) we needed on GKE. While deploying multiple models for benchmark (accuracy, load test, response timem, token cost, etc) on GKE, we needed a ML API Gateway. The mechanism is very simple: each HTTP request contains an exact model name from HuggingFace (eg Qwen/Qwen2.5-3B) and a prompt, and the ML API Gateway will forward that prompt to the cluster hosting that model, and return the response.
@@ -14,7 +14,7 @@ Our company had a few running models on Google Vertex AI. We wanted to consider 
 Another member handled the deployment on GKE. I was in charge of the ML API Gateway.
 
 ### Codebase
-My colleague had written a Terraform code for the GKE infrastructure and Knative YAML scripts for the models running on the GKE, and had deployed images of models (Qwen/Qwen2.5-3B, Qwen/Qwen-7B) on GKE services, and tested successfully.
+My colleague had written a Terraform code for the GKE infrastructure and Knative YAML scripts for the models running on the GKE, and had deployed images of models (Qwen/Qwen2.5-3B, Qwen/Qwen-7B) on GKE services, and tested successfully.<br>
 *sidenote: it's OK if our audience aren't familiar with how K8s works. Not all of us employ K8s frequently in our daily work. K8s, also known as GKE (Google Kubernetes Engine) on Google Cloud (this post may write K8s and GKE interchangeably) allows you to autoscale horizontally workload on demand. When you deploy on K8s service, you are given an URL. The URL is deterministically computed based on the service name you defined. You can use this URL to access this service workload, given that you are on the same network with K8s.*
 
 Now it's my turn. I just need to "turn on" our experimental K8s cluster, deploy the models again, then write a common API Gateway for that. *Because our K8s cluster is experimental, we shut it down when we didn't need anymore. Preferably outside working hour.*
@@ -42,7 +42,7 @@ I wrote a list of what I needed:
 
 My colleague deployed the models with just his terminal. It's quick and simple enough. Just pull the model from HuggingFace, bake that model in our Docker image build process, deploy that Docker image containing the model on the K8s cluster. I figured, if I didn't want the Python API Gateway to use hardcode model names, then the Docker image build process and the deployment process should not hardcode model names. The name should come from user input. That means a **bash deployment script**!
 
-User input is model name (*what models from HuggingFace do you want to deploy:*, asks the terminal). Then the Knative YAML file must be a template. But I didn't know much about how Knative worked. And using `sed` to replace text in Knative YAML file seems a bit risky: I wasn't sure if one day, `sed` could change the YAML file unintentionally.
+User input is model name (*"what models from HuggingFace do you want to deploy?"*, asks the terminal). Then the Knative YAML file must be a template. But I didn't know much about how Knative worked. And using `sed` to replace text in Knative YAML file seems a bit risky: I wasn't sure if one day, `sed` could change the YAML file unintentionally.
 
 *sidenote: from my previous experience, I didn't know much about Knative. And I was sure I could not rely on asking Gemini to edit Knative for me. Many times, I asked Gemini (our company provided us with Gemini Pro) for help, and the results were unusable. I had to pull up the official Knative documents, and edit the YAML file by myself. Seems normal back in the days, but in the era of AI, that can be seen as being unproductive.*
 
